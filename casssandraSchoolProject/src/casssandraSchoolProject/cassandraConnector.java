@@ -1,5 +1,8 @@
 package casssandraSchoolProject;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 
@@ -21,10 +24,10 @@ public class cassandraConnector {
 	queryMethods.createTable(session, "person");
 	System.out.println("Table created");
 	
-	//insert into table(s)
+	Instant start = Instant.now();
 	queryMethods.insertMillionIntoTable(session,"person");
-	
-	//Tracing performance
+	Instant finish = Instant.now();
+	System.out.println(Duration.between(start, finish).toMillis());
 
 	session.close();
 }

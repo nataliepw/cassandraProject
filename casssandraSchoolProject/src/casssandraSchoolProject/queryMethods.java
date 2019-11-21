@@ -27,7 +27,7 @@ public class queryMethods {
 			
 			
 		String statement = "INSERT INTO " + tableName + " (id,firstname,lastname,height) VALUES ("+Integer.toString(i)+ ",'" + rand1 + "', '"+ rand2 +"', '"+ rand3 + "')"; 
-		System.out.println("Executing statement: " + statement);
+		//System.out.println("Executing statement: " + statement);
 		s.execute(statement);
 		}
 	}
