@@ -1,7 +1,6 @@
 package casssandraSchoolProject;
 
 import java.util.Random;
-
 import com.datastax.driver.core.Session;
 
 public class queryMethods {
@@ -11,35 +10,55 @@ public class queryMethods {
 	public static void createTable(Session s, String tableName) {
 		String statement = "CREATE TABLE IF NOT EXISTS " + tableName + " ("
 				+ "id int PRIMARY KEY, "
-				+ "firstname text,"
-				+ "lastname text,"
-				+ "height text);";
+				+ "age text)";
 		
 		s.execute(statement);
+		System.out.println("Table created");
 	}
+
 	
+	public static void insertIntoTableManually(Session s, String tableName, String statement){
+		s.execute(statement);
+		
+		}
 	
-	public static void insertMillionIntoTable(Session s, String tableName){
-		for(int i = 1; i < 1000000; i++) {
-			String rand1 = Integer.toString(randomStr.nextInt()),
-					rand2 = Integer.toString(randomStr.nextInt()),
-					rand3 = Integer.toString(randomStr.nextInt());
+	public static void insertIntoTableScalability(Session s, String tableName){
+		for(int i = 1; i < 100000; i++) {
+			int rand = randomStr.nextInt();
 			
-			
-		String statement = "INSERT INTO " + tableName + " (id,firstname,lastname,height) VALUES ("+Integer.toString(i)+ ",'" + rand1 + "', '"+ rand2 +"', '"+ rand3 + "')"; 
+		String statement = "INSERT INTO " + tableName + " (id,age) VALUES (" + i + ", '" + rand + "');"; 
 		//System.out.println("Executing statement: " + statement);
 		s.execute(statement);
+		
 		}
+	}
+	
+	public static void insertIntoTableTombstone(Session s, String tableName){
+		for(int i = 1; i < 100000; i++) {
+			String statement = "INSERT INTO " + tableName + " (id,age) VALUES (" + i +  " ,'klsdjf');"; 
+			//System.out.println("Executing statement: " + statement);
+			
+			s.execute(statement);
+		
+		}
+			
 	}
 		
 	
-	public static void selectFromTable(Session s, String tableName) {
-		String statement = "SELECT firstname from " + tableName + " ORDER BY firstname;";
+	public static void selectALLFromTable(Session s, String tableName) {
+		String statement = "SELECT * FROM " + tableName + ";";
 		s.execute(statement);
+		
 	}
 	
-	public static void deleteFromTable(Session s, String tableName) {
-		String statement = "DELETE FROM " + tableName + " WHERE id < 50;";
+	public static void selectFromTableManually(Session s, String tableName, String statement) {
+		s.execute(statement);
+		
+		
+	}
+	
+	public static void deleteIDFromTable(Session s, String tableName) {
+		String statement = "TRUNCATE cassandraprosjekt." + tableName + ";";
 		s.execute(statement);
 	}
 	
